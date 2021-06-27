@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import ch.zhaw.springboot.entities.Experience;
 import ch.zhaw.springboot.repositories.ExperienceRepository;
 
@@ -42,6 +43,17 @@ public class ExperienceRestController {
 			return new ResponseEntity<Experience>(result.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Experience>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@RequestMapping(value = "coachingapp/experiences/findExperienceByName/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<Experience>> findExperienceByName(@PathVariable("name") String name) {
+		List<Experience> result = this.repository.findExperienceByName(name);
+
+		if (!result.isEmpty()) {
+			return new ResponseEntity<List<Experience>>(result, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<List<Experience>>(HttpStatus.NOT_FOUND);
 		}
 	}
 
