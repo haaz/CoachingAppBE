@@ -6,25 +6,33 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import ch.zhaw.springboot.entities.Coaching;
 import ch.zhaw.springboot.repositories.CoachingRepository;
 
+@RestController
+@CrossOrigin
 public class CoachingRestController {
 
 	@Autowired
 	private CoachingRepository repository;
 
-	@GetMapping("coachingapp/coachings")
+	
+	@RequestMapping(value = "coachingapp/coachings", method = RequestMethod.GET)
 	public ResponseEntity<List<Coaching>> getCoachings() {
-		List<Coaching> result = this.repository.findAll();
-
+		List<Coaching> result = repository.findAll();
 		if (!result.isEmpty()) {
-			return ResponseEntity.ok(result);
+
+			return new ResponseEntity<List<Coaching>>(result, HttpStatus.OK);
 		} else {
-			return ResponseEntity.notFound().build();
+
+			return new ResponseEntity<List<Coaching>>(HttpStatus.NOT_FOUND);
 		}
 	}
 

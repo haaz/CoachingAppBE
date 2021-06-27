@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Coaching {
@@ -19,11 +19,11 @@ public class Coaching {
 	private String country;
 	private String city;
 
-	@JsonIgnore
+
 	@ManyToOne
 	private Expert expert;
 
-	@JsonIgnore
+
 	@ManyToOne
 	private Experience experience;
 
@@ -33,6 +33,9 @@ public class Coaching {
 		this.city = city;
 		this.expert = expert;
 		this.experience = experience;
+	}
+	public Coaching() {
+		
 	}
 
 	public long getId() {
